@@ -120,7 +120,7 @@ outputLabel.grid(row=5, columnspan = 3, sticky = tk.W+tk.E)
 
 '''Defining input variables and their text boxes'''
 fName = tk.StringVar()
-fNameEntered = ttk.Entry(DatabaseGUI, width=20, textvariable=fName)
+fNameEntered = ttk.Entry(DatabaseGUI, width=20,textvariable=fName)
 fNameEntered.grid(column=1, row=0)
 
 lName = tk.StringVar()

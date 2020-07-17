@@ -41,9 +41,10 @@ def create_tables(database):
 
     sql_create_student_table = """CREATE TABLE IF NOT EXISTS student (
                                     std_id integer PRIMARY KEY,
+                                    per_id integer NOT NULL,
                                     major text NOT NULL,
                                     start_date text NOT NULL,
-                                    FOREIGN KEY (std_id) REFERENCES person (per_id)
+                                    FOREIGN KEY (per_id) REFERENCES person (per_id)
                                 );"""
 
     conn = create_connection(database)
@@ -84,7 +85,13 @@ def find_person_id(conn, fName, lName):
     cur = conn.cursor()
     cur.execute("SELECT per_id FROM person WHERE firstname = (?) AND lastname = (?)", (fName, lName))
 
-    return cur.fetchone()
+    return cur.fetchone
+
+    # sql = ''' INSERT INTO person(firstname,lastname)
+    #           VALUES(?,?) '''
+    # cur = conn.cursor()  # cursor object
+    # cur.execute(sql, person)
+    # return cur.lastrowid # returns the row id of the cursor object, the person id
 
 ''''''
 def select_all_students(conn):
@@ -105,7 +112,7 @@ def create_person(conn, person):
 
 ''''''
 def create_student(conn, student):
-    sql = ''' INSERT INTO student(std_id, major, start_date)
+    sql = ''' INSERT INTO student(per_id, major, start_date)
               VALUES(?,?,?) '''
     cur = conn.cursor()  # cursor object
     cur.execute(sql, student)
